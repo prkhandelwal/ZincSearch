@@ -1,13 +1,13 @@
-﻿using static ZincSearch.Constants;
+﻿using static ZincSearch.Models.Constants;
 
-namespace ZincSearch
+namespace ZincSearch.Models
 {
-    public record WebPage(int Index, List<string> Keywords)
+    public record Query(int Index, List<string> Keywords)
     {
-        public Dictionary<String, int> KeywordsWithWeights { get; init; } = ValidateSizeAndGetKeywords(Keywords);
-        public string Name => "P" + Index;
+        public Dictionary<string, int> KeywordsWithWeights { get; init; } = ValidateSizeAndGetKeywords(Keywords);
+        public string Name => "Q" + Index;
 
-        private static Dictionary<string, int> ValidateSizeAndGetKeywords(List<String> Keywords)
+        private static Dictionary<string, int> ValidateSizeAndGetKeywords(List<string> Keywords)
         {
             var result = new Dictionary<string, int>();
             var keywords = Keywords.Count > MAX_WEIGHT ? Keywords.GetRange(0, MAX_WEIGHT) : Keywords;

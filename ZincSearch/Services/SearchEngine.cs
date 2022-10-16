@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZincSearch.Models;
 
-namespace ZincSearch
+namespace ZincSearch.Services
 {
-    public static class SearchEngine
+    public class SearchEngine
     {
-        private static Dictionary<string, List<WebPage>> _globalIndex = new Dictionary<string, List<WebPage>>();
+        private Dictionary<string, List<WebPage>> _globalIndex = new Dictionary<string, List<WebPage>>();
 
-        public static List<WebPage> GetQueryResult(Query query)
+        public List<WebPage> GetQueryResult(Query query)
         {
             var dict = new Dictionary<WebPage, int>();
             var webpages = _globalIndex.Where(a => query.Keywords.Contains(a.Key)).SelectMany(a => a.Value).Distinct();
@@ -32,7 +33,7 @@ namespace ZincSearch
         }
 
 
-        public static void AddPageToIndex(WebPage webPage)
+        public void AddPageToIndex(WebPage webPage)
         {
             foreach (var keyword in webPage.Keywords)
             {

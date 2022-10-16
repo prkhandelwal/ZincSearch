@@ -1,4 +1,6 @@
 ﻿using ZincSearch;
+using ZincSearch.Models;
+using ZincSearch.Services;
 
 // Prepare Input
 var textFile = File.ReadLines("input.txt");
@@ -26,17 +28,19 @@ foreach(var line in textFile)
     }
 }
 
+var searchEngine = new SearchEngine();
+
 // Create an index
 foreach (var page in webPages)
 {
-    SearchEngine.AddPageToIndex(page);
+    searchEngine.AddPageToIndex(page);
 }
 
 
 //Print Query Results
 foreach(Query query in queries)
 {
-    var queryResult = SearchEngine.GetQueryResult(query);
+    var queryResult = searchEngine.GetQueryResult(query);
 
     Console.WriteLine($"{query.Name}: {string.Join(" ", queryResult.Select(a => a.Name))}");
 }
